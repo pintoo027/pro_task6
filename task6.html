@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Contact Us</h2>
+  <form id="contactForm">
+    <label for="name">Name</label>
+    <input type="text" id="name" />
+    <div class="error" id="nameError"></div>
+
+    <label for="email">Email</label>
+    <input type="text" id="email" />
+    <div class="error" id="emailError"></div>
+
+    <label for="message">Message</label>
+    <textarea id="message" rows="4"></textarea>
+    <div class="error" id="messageError"></div>
+
+    <button type="submit">Submit</button>
+    <div class="success" id="successMessage"></div>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById("contactForm");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Input elements
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    // Error message elements
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const messageError = document.getElementById("messageError");
+    const successMessage = document.getElementById("successMessage");
+
+    // Clear previous messages
+    nameError.textContent = "";
+    emailError.textContent = "";
+    messageError.textContent = "";
+    successMessage.textContent = "";
+
+    let isValid = true;
+
+    // Email regex
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Validation
+    if (name === "") {
+      nameError.textContent = "Name is required.";
+      isValid = false;
+    }
+
+    if (email === "") {
+      emailError.textContent = "Email is required.";
+      isValid = false;
+    } else if (!emailRegex.test(email)) {
+      emailError.textContent = "Invalid email format.";
+      isValid = false;
+    }
+
+    if (message === "") {
+      messageError.textContent = "Message is required.";
+      isValid = false;
+    }
+
+    // Show success message if all fields are valid
+    if (isValid) {
+      successMessage.textContent = "✅ Form submitted successfully!";
+      form.reset();
+    }
+  });
+</script>
+
+</body>
+</html>
